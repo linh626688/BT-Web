@@ -11,10 +11,6 @@
 |
  */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -29,7 +25,7 @@ Route::get('/', function () {
 Route::group(['middleware' => ['web']], function () {
     //
 });
-Route::resource('/', 'IndexController');
+// Route::resource('/', 'IndexController');
 Route::resource('search', 'SearchController');
 Route::resource('/login', 'LoginController@login');
 
@@ -46,3 +42,28 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 
 });
 Route::get('admin', 'AdminController@index');
+
+Route::get('query/select-all', function () {
+    $data = DB::table('lop_mon_hocs')->get();
+    echo "<prev";
+    print_r($data);
+    echo "</prev";
+
+});
+Route::get('query/select-col', function () {
+    $data = DB::table('lop_mon_hocs')->select('name')->get();
+    echo "<prev";
+    print_r($data);
+    echo "</prev";
+
+});
+Route::post('/', function () {
+    $keyword = Input::get('keyword');
+
+    $class = lop_mon_hocs::where('name', 'LIKE', '%' . $keyword . '%')->get();
+    var_dump('search results');
+    foreach ($lop_mon_hocs as $lop_mon_hoc => $value) {
+        # code...
+        var_dump($lop_mon_hoc->name);
+    }
+});

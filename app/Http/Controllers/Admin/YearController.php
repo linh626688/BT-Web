@@ -40,11 +40,10 @@ class YearController extends Controller
      */
     public function store(Request $request)
     {
-        
 
-        *$year = new NamHoc;
-    $year->name = $request->name;
-    $year->save();*/
+        $year = new NamHoc;
+        $year->name = $request->name;
+        $year->save();
 
     }
 
